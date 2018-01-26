@@ -35,6 +35,23 @@ ReactDOM.render(
     </div>
 
     <div style={style}>
+      <p>Slider with marks, `railOverlaySize={50}`</p>
+      <Slider min={-10} marks={marks} railOverlaySize={50} onChange={log} defaultValue={20} />
+    </div>
+    <div style={style}>
+      <p>Slider with marks and steps, `railOverlaySize={70}`</p>
+      <Slider
+        dots
+        min={-10}
+        marks={marks}
+        railOverlaySize={70}
+        step={10}
+        onChange={log}
+        defaultValue={20}
+      />
+    </div>
+
+    <div style={style}>
       <p>Slider with marks, `included=false`</p>
       <Slider min={-10} marks={marks} included={false} defaultValue={20} />
     </div>

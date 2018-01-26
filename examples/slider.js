@@ -93,11 +93,15 @@ ReactDOM.render(
     </div>
     <div style={style}>
       <p>Basic Slider，`step=20, dots`</p>
-      <Slider dots step={20} defaultValue={100} onAfterChange={log} />
+      <Slider dots step={20} defaultValue={50} onAfterChange={log} />
     </div>
     <div style={style}>
       <p>Basic Slider，`step=20, dots, dotStyle={"{borderColor: 'orange'}"}, activeDotStyle={"{borderColor: 'yellow'}"}`</p>
-      <Slider dots step={20} defaultValue={100} onAfterChange={log} dotStyle={{ borderColor: 'orange' }} activeDotStyle={{ borderColor: 'yellow' }} />
+      <Slider dots step={20} defaultValue={50} onAfterChange={log} dotStyle={{ borderColor: 'orange' }} activeDotStyle={{ borderColor: 'yellow' }} />
+    </div>
+    <div style={style}>
+      <p>Basic Slider，`step=20, dots, dotStyle, activeDotStyle, railOverlaySize={40} railOverlayDotStyle={"{ borderColor: 'red' }"}`</p>
+      <Slider dots step={20} defaultValue={50} onAfterChange={log} dotStyle={{ borderColor: 'orange' }} activeDotStyle={{ borderColor: 'yellow' }} railOverlaySize={40} railOverlayDotStyle={{ borderColor: 'red' }} />
     </div>
     <div style={style}>
       <p>Slider with tooltip, with custom `tipFormatter`</p>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
 import classNames from 'classnames';
 import warning from 'warning';
-import Steps from './Steps';
+import Steps, { calcRailOverlaySize } from './Steps';
 import Marks from './Marks';
 import Handle from '../Handle';
 import * as utils from '../utils';
@@ -41,6 +41,9 @@ export default function createSlider(Component) {
       autoFocus: PropTypes.bool,
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
+      railOverlaySize: PropTypes.number,
+      railOverlayStyle: PropTypes.object,
+      railOverlayDotStyle: PropTypes.object,
     };
 
     static defaultProps = {
@@ -273,6 +276,9 @@ export default function createSlider(Component) {
         maximumTrackStyle,
         style,
         railStyle,
+        railOverlaySize,
+        railOverlayStyle,
+        railOverlayDotStyle,
         dotStyle,
         activeDotStyle,
       } = this.props;
@@ -302,7 +308,17 @@ export default function createSlider(Component) {
               ...maximumTrackStyle,
               ...railStyle,
             }}
-          />
+          >
+            {railOverlaySize ?
+              <div
+                className={`${prefixCls}-rail-overlay`}
+                style={Object.assign(
+                  calcRailOverlaySize(min, max, vertical, railOverlaySize),
+                  railOverlayStyle,
+                )}
+              />
+            : null}
+          </div>
           {tracks}
           <Steps
             prefixCls={prefixCls}
@@ -315,6 +331,8 @@ export default function createSlider(Component) {
             upperBound={this.getUpperBound()}
             max={max}
             min={min}
+            railOverlaySize={railOverlaySize}
+            railOverlayDotStyle={railOverlayDotStyle}
             dotStyle={dotStyle}
             activeDotStyle={activeDotStyle}
           />

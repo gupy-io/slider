@@ -17,22 +17,47 @@ const calcPoints = (vertical, marks, dots, step, min, max) => {
   return points;
 };
 
+const calcRailOverlaySize = (min, max, vertical, overlaySize) => {
+  const range = max - min;
+  const size = `${Math.abs(overlaySize - min) / range * 100}%`;
+
+  if (vertical) {
+    return {
+      height: size,
+      width: 'inherit',
+      position: 'absolute',
+      bottom: 0,
+    };
+  }
+
+  return {
+    height: 'inherit',
+    width: size,
+  };
+};
+
 const Steps = ({ prefixCls, vertical, marks, dots, step, included,
-                lowerBound, upperBound, max, min, dotStyle, activeDotStyle }) => {
+                lowerBound, upperBound, max, min, railOverlaySize, railOverlayDotStyle,
+                dotStyle, activeDotStyle }) => {
   const range = max - min;
   const elements = calcPoints(vertical, marks, dots, step, min, max).map((point) => {
     const offset = `${Math.abs(point - min) / range * 100}%`;
 
     const isActived = (!included && point === upperBound) ||
             (included && point <= upperBound && point >= lowerBound);
+    const isOverlay = railOverlaySize && railOverlaySize === point;
     let style = vertical ? { bottom: offset, ...dotStyle } : { left: offset, ...dotStyle };
     if (isActived) {
       style = { ...style, ...activeDotStyle };
+    }
+    if (isOverlay) {
+      style = { ...style, ...railOverlayDotStyle };
     }
 
     const pointClassName = classNames({
       [`${prefixCls}-dot`]: true,
       [`${prefixCls}-dot-active`]: isActived,
+      [`${prefixCls}-dot-overlay`]: isOverlay,
     });
 
     return <span className={pointClassName} style={style} key={point} />;
@@ -42,3 +67,4 @@ const Steps = ({ prefixCls, vertical, marks, dots, step, included,
 };
 
 export default Steps;
+export { calcRailOverlaySize };

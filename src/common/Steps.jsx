@@ -17,25 +17,6 @@ const calcPoints = (vertical, marks, dots, step, min, max) => {
   return points;
 };
 
-const calcRailOverlaySize = (min, max, vertical, overlaySize) => {
-  const range = max - min;
-  const size = `${Math.abs(overlaySize - min) / range * 100}%`;
-
-  if (vertical) {
-    return {
-      height: size,
-      width: 'inherit',
-      position: 'absolute',
-      bottom: 0,
-    };
-  }
-
-  return {
-    height: 'inherit',
-    width: size,
-  };
-};
-
 const Steps = ({ prefixCls, vertical, marks, dots, step, included,
                 lowerBound, upperBound, max, min, railOverlaySize, railOverlayDotStyle,
                 dotStyle, activeDotStyle }) => {
@@ -67,4 +48,3 @@ const Steps = ({ prefixCls, vertical, marks, dots, step, included,
 };
 
 export default Steps;
-export { calcRailOverlaySize };

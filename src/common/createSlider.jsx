@@ -3,12 +3,31 @@ import PropTypes from 'prop-types';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
 import classNames from 'classnames';
 import warning from 'warning';
-import Steps, { calcRailOverlaySize } from './Steps';
+import Steps from './Steps';
 import Marks from './Marks';
 import Handle from '../Handle';
 import * as utils from '../utils';
 
 function noop() {}
+
+const calcRailOverlaySize = (min, max, vertical, overlaySize) => {
+  const range = max - min;
+  const size = `${Math.abs(overlaySize - min) / range * 100}%`;
+
+  if (vertical) {
+    return {
+      height: size,
+      width: 'inherit',
+      position: 'absolute',
+      bottom: 0,
+    };
+  }
+
+  return {
+    height: 'inherit',
+    width: size,
+  };
+};
 
 export default function createSlider(Component) {
   return class ComponentEnhancer extends Component {
